@@ -1,0 +1,7 @@
+# zkRaffle
+
+a raffle system for conference organizers utilizing Sismo for rep aggregation.
+
+allows anyone with the base reputation to claim 1 ticket allocation which linearly increases based on their rep score.
+
+tickets allocations for the raffle are priced linearly / exponentially based on the preference of the conference organizer.
