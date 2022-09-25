@@ -1,0 +1,28 @@
+refundableERCx
+
+- both compatible with ERC20 / ERC721
+- social contract across tokenholders (not enforceable and driven by tokenholders' moral/ethics)
+- contrarian take on [reversible transactions](https://mirror.xyz/kaili.eth/gB-rx89sNAT3CVuxWo6xVFS5ptNcllW7cVWVCfcFa6k)
+
+the basics:
+1. owner of the balance / JPEG gets hacked or phished, losses its ownership and asks for a refund
+
+2. an proof is generated proving its history of ownership of those assets, the proof is submitted through a mint_stolen() call, in which:
+a) ERC20s are generated to the caller address with a 7 day lockup period
+b) the same ERC721 ID is generated to the caller with a 7 day lockup period (so now there is 2 ERC721 with token ID 1, 1 duplicated and 1 original/hacked)
+
+3. mint_stolen() functions as a optimistic oracle (based on UMA or Kleros), in which tokenholders can dispute during the 7 day window to prevent duplication from happening.
+ during the 7 day period, anyone can call dispute_mint() along a token bond, in order to trigger a vote:
+a) if the tokenholders decide the request is valid, then the disputer gets its stake burned and the tokens get issued to the requester.
+b) if the tokenholders decide the request is invalid, then the disputer gets its stake back and tokens dont get issued.
+
+
+Issues:
+- ERC20s have their incentives better alligned to maintain this model due to its fungible nature (ERC721s have a similar fungibility on the floor price NFTs, but not sure if its comparable to the ERC20 case)
+- what a shitshow this would be, fuck reversible transactions.
+
+Upgrades:
+- Incentivize disputers.
+- Improve the mint_stolen() call factors:
+  a) make the proof contain a block number in which the balance can be correctly verified
+  b) don't allow proof to be submitted once they are >X blocks old (ex: reverts on proofs from 5000 blocks old)
